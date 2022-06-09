@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move_L //Creation of new class in order to do stuff
+public class OmniDir //Creation of new class in order to do stuff
                     //when defining a class you are defining a new type like a int or struct
                     //new instances of your class are made by calling new memory and then your class name 
 {
     
     
 
-    private Vector3 m_direction;          //Vector3 is an object already created from Unity, in this case it is owned by Move_L, we assigned the object to a variable or m_direction; m_direction has type vector3
+    private Vector3 m_direction;          //Vector3 is an object already created from Unity, in this case it is owned by OmniDir, we assigned the object to a variable or m_direction; m_direction has type vector3
     private KeyCode m_press;              //Same as above but with KeyCode; m_press has type KeyCode
 
-    public Move_L(KeyCode press, Vector3 direction) // making Move_L constructor public solved a lot of errors; Move_L is a constructor of the Move_L class
+    public OmniDir(KeyCode press, Vector3 direction) // making OmniDir constructor public solved a lot of errors; OmniDir is a constructor of the OmniDir class
     {                                               //initialized the constructor with the two object variables press and direction which are arguments
 
 
@@ -21,11 +21,11 @@ public class Move_L //Creation of new class in order to do stuff
     }
 
 
-    public void shmoove(Transform foo, float s) //This function applies the changes to the player vectors that we want; recieving transform object from class movement and recieving float speed from class movement and naming them so they can be used in class Move_L                                       
+    public void move(Transform foo, float speed) //This function applies the changes to the player vectors that we want; recieving transform object from class movement and recieving float speed from class movement and naming them so they can be used in class OmniDir                                       
     {
         if (Input.GetKey(m_press)) //getkey requires a parameter so that it knows what look for what has been pressed, in this case it is looking at m_press which has 4 keys stored in it
         {
-            foo.Translate(s * m_direction * Time.deltaTime); //foo is the same transform object that is in the movement class that is inherited from monobehavior but we gave it a name when we passed it into shmoove
+            foo.Translate(speed * m_direction * Time.deltaTime); //foo is the same transform object that is in the movement class that is inherited from monobehavior but we gave it a name when we passed it into move
                                                                  // translate is a function of transfrom and  we change the translate variables using speed * m_direction * time
         }
     }
@@ -52,22 +52,22 @@ public class Movement : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, 0); //this reads as rotation of the transform of the playerobject and it's setting its rotation to 0,0,0 i.e player lock 
 
-        foreach(Move_L i in nice) //loop that iterates through size of nice (4) by counting each move_L instance
+        foreach(OmniDir i in movementList) //loop that iterates through size of movementList (4) by counting each move_L instance
         {
-            i.shmoove(transform, speed);//calling shmoove function and passing through the transform object that is in class movement inherited from Monobehavior; passing float speed to shmoove function
+            i.move(transform, speed);//calling move function and passing through the transform object that is in class movement inherited from Monobehavior; passing float speed to move function
         }
        
     }
    
-    List<Move_L> nice = new List<Move_L>(); //created a list called nice of type List<Move_L>
+    List<OmniDir> movementList = new List<OmniDir>(); //created a list called movementList of type List<OmniDir>
 
     
-    public void list_store() //not sure if making this public did anything; This function is used to add Move_L objects in the nice list we created; note that the Move_L objects are being added to the contsructor not neccesarily the class
+    private void list_store() //not sure if making this public did anything; This function is used to add OmniDir objects in the movementList list we created; note that the OmniDir objects are being added to the contsructor not neccesarily the class
     {
-        nice.Add(new Move_L(KeyCode.W, Vector3.up));
-        nice.Add(new Move_L(KeyCode.A, Vector3.left));
-        nice.Add(new Move_L(KeyCode.S, Vector3.down));
-        nice.Add(new Move_L(KeyCode.D, Vector3.right));
+        movementList.Add(new OmniDir (KeyCode.W, Vector3.up));
+        movementList.Add(new OmniDir (KeyCode.A, Vector3.left));
+        movementList.Add(new OmniDir (KeyCode.S, Vector3.down));
+        movementList.Add(new OmniDir (KeyCode.D, Vector3.right));
     }
    
    

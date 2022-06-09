@@ -6,7 +6,8 @@ public class Move_L //Creation of new class in order to do stuff
                     //when defining a class you are defining a new type like a int or struct
                     //new instances of your class are made by calling new memory and then your class name 
 {
-    private float speed = 2;
+    
+    
 
     private Vector3 m_direction;          //Vector3 is an object already created from Unity, in this case it is owned by Move_L, we assigned the object to a variable or m_direction; m_direction has type vector3
     private KeyCode m_press;              //Same as above but with KeyCode; m_press has type KeyCode
@@ -20,11 +21,11 @@ public class Move_L //Creation of new class in order to do stuff
     }
 
 
-    public void shmoove(Transform foo) //I think making this function public solved an error; This function applies the changes to the player vectors that we want; 
+    public void shmoove(Transform foo, float s) //This function applies the changes to the player vectors that we want; recieving transform object from class movement and recieving float speed from class movement and naming them so they can be used in class Move_L                                       
     {
         if (Input.GetKey(m_press)) //getkey requires a parameter so that it knows what look for what has been pressed, in this case it is looking at m_press which has 4 keys stored in it
         {
-            foo.Translate(speed * m_direction * Time.deltaTime); //foo is the same transform object that is in the movement class that is inherited from monobehavior but we gave it a name when we passed it into shmoove
+            foo.Translate(s * m_direction * Time.deltaTime); //foo is the same transform object that is in the movement class that is inherited from monobehavior but we gave it a name when we passed it into shmoove
                                                                  // translate is a function of transfrom and  we change the translate variables using speed * m_direction * time
         }
     }
@@ -35,10 +36,10 @@ public class Move_L //Creation of new class in order to do stuff
 
 public class Movement : MonoBehaviour
 {
+    public float speed = 2;
 
 
 
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +54,7 @@ public class Movement : MonoBehaviour
 
         foreach(Move_L i in nice) //loop that iterates through size of nice (4) by counting each move_L instance
         {
-            i.shmoove(transform);//calling shmoove function and passing through the transform object that is in class movement inherited from Monobehavior
+            i.shmoove(transform, speed);//calling shmoove function and passing through the transform object that is in class movement inherited from Monobehavior; passing float speed to shmoove function
         }
        
     }

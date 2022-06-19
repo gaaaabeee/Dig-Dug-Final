@@ -26,7 +26,7 @@ public class OmniDir //Creation of new class in order to do stuff
         if (Input.GetKey(m_press)) //getkey requires a parameter so that it knows what look for what has been pressed, in this case it is looking at m_press which has 4 keys stored in it
         {
             foo.Translate(speed * m_direction * Time.deltaTime); //foo is the same transform object that is in the movement class that is inherited from monobehavior but we gave it a name when we passed it into move
-                                                                 // translate is a function of transfrom and  we change the translate variables using speed * m_direction * time
+           // foo.Rotate(speed * m_direction * Time.deltaTime);                                                     // translate is a function of transfrom and  we change the translate variables using speed * m_direction * time
         }
     }
 
@@ -52,7 +52,11 @@ public class Movement : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, 0); //this reads as rotation of the transform of the playerobject and it's setting its rotation to 0,0,0 i.e player lock 
 
-        foreach(OmniDir i in movementList) //loop that iterates through size of movementList (4) by counting each move_L instance
+
+      
+
+
+        foreach (OmniDir i in movementList) //loop that iterates through size of movementList (4) by counting each move_L instance
         {
             i.move(transform, speed);//calling move function and passing through the transform object that is in class movement inherited from Monobehavior; passing float speed to move function
         }
@@ -62,7 +66,7 @@ public class Movement : MonoBehaviour
     List<OmniDir> movementList = new List<OmniDir>(); //created a list called movementList of type List<OmniDir>
 
     
-    private void list_store() //not sure if making this public did anything; This function is used to add OmniDir objects in the movementList list we created; note that the OmniDir objects are being added to the contsructor not neccesarily the class
+    private void list_store() //This function is used to add OmniDir objects in the movementList list we created; note that the OmniDir objects are being added to the contsructor not neccesarily the class
     {
         movementList.Add(new OmniDir (KeyCode.W, Vector3.up));
         movementList.Add(new OmniDir (KeyCode.A, Vector3.left));
